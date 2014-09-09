@@ -1,0 +1,14 @@
+-
+    path: event_type
+    value: network.create.start
+    cmd: echo
+    args:
+        - _context_tenant
+        - payload.network.name
+-
+    path: event_type
+    value: network.create.start
+    cmd: touch
+    args:
+        - _context_tenant
+        - payload.network.name
