@@ -38,6 +38,13 @@ OPTS = [
     cfg.StrOpt(
         'rules_file',
         help='Path to the rules yaml file.'),
+    cfg.StrOpt(
+        'topic',
+        default='notifications.info',
+        help='Topic used to capture event'),
+    cfg.StrOpt(
+        'exchange',
+        help='Exchange used to capture event')
 ]
 
 
@@ -78,7 +85,8 @@ class OnEventAgent(service.Service):
                 pass
 
     def initialize_service_hook(self, service):
-        topic = 'notifications.info'
+        topic = cfg.CONF.OS_EVENT_CATCHER.topic
+        exchange = cfg.CONF.OS_EVENT_CATCHER.exchange
         try:
             self.conn.join_consumer_pool(
                 callback=self.process_notification,
@@ -90,7 +98,7 @@ class OnEventAgent(service.Service):
             LOG.exception(_('Could not join consumer pool'
                             ' %(topic)s/%(exchange)s') %
                           {'topic': topic,
-                           'exchange': 'neutron'})
+                           'exchange': exchange})
 
 
 def main():
