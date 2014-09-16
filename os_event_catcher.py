@@ -77,7 +77,8 @@ class OnEventAgent(service.Service):
                 for arg in rule['args']:
                     keys = arg.split('.')
                     arg_value = self.get_value(notification, keys)
-                    cmd.append(arg_value)
+                    if arg_value:
+                        cmd.append(arg_value)
 
                 LOG.info(cmd)
                 processutils.execute(' '.join(cmd), shell="/bin/sh")

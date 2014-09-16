@@ -1,14 +1,8 @@
 -
     path: event_type
-    value: network.create.start
-    cmd: echo
+    value: floatingip.update.end
+    cmd: /tmp/float.sh
     args:
-        - _context_tenant
-        - payload.network.name
--
-    path: event_type
-    value: network.create.start
-    cmd: touch
-    args:
-        - _context_tenant
-        - payload.network.name
+        - _context_tenant_id
+        - payload.floatingip.floating_ip_address
+        - payload.floatingip.port_id
