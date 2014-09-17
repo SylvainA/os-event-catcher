@@ -8,12 +8,27 @@ How to start it
 
 os-event-catcher --config-file os_event_catcher.conf
 
-Configure neutron
+Install and configure os-event-catcher
 -----------------
+
+```
+$ git clone ...
+$ cd os-event-catcher
+$ sudo mkdir -p /opt/enovance/os-event-catcher
+$ sudo cp etc/init.d/os-event-catcher /etc/init.d/
+$ sudo update-rc.d os-event-catcher defaults
 
 Edit `/etc/neutron/neutron-server/conf`:
 
-    notification_topics = notifications, os-event-catchers"
+    notification_topics = notifications, os-event-catchers
+
+And restart neutron-server
+
+    service neutron-server restart
+
+Start!
+
+    service os-event-catcher start
 
 How to write the rules
 ----------------------
