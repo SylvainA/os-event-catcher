@@ -1,7 +1,7 @@
 -
     path: event_type
     value: floatingip.update.end
-    cmd: /tmp/float.sh
+    cmd: /opt/enovance/os-event-catcher/exec.sh
     args:
         - _context_tenant_id
         - payload.floatingip.floating_ip_address

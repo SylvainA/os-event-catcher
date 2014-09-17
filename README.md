@@ -6,7 +6,14 @@ Trigger scripts on openstack notification events
 How to start it
 ---------------
 
-os_event_catcher.py --config-file os_event_catcher.conf
+os-event-catcher --config-file os_event_catcher.conf
+
+Configure neutron
+-----------------
+
+Edit `/etc/neutron/neutron-server/conf`:
+
+    notification_topics = notifications, os-event-catchers"
 
 How to write the rules
 ----------------------
@@ -56,3 +63,16 @@ Below an example with two scripts trigerred:
         - payload.network.name
 
 ```
+
+Example with floating IPs
+-------------------------
+
+At some point, you might like to get notified or to trigger actions on a floating IP event.
+The current rule catches any attach or detach floating IP call.
+It will execute the "exec.sh" script for each catch, the script will do the rest.
+The script simply prints in a file every useful information regarding the floating IP.
+
+Pacemaker config
+----------------
+
+    crm configure primitive p_os_event_catcher lsb:os-event-catcher op monitor interval="10s"
